@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,58 +8,125 @@ namespace Nelinurk
 {
     class Nelinurk
     {
-        int kõrgus;
-        int laius;
-        string tüüp;
+        double kõrgus;
+        double laius;
+        double diagonaal;
+        int süstimine;
+        int süstimine_2;
+        private string tüüp;
+        double S;
+        double P;
+
         public string Tüüp
         {
-            set
+
+            get
             {
-                string tüüp;
                 if (kõrgus == laius)
                 {
-                    tüüp = "Ruut";
+                    Console.WriteLine("Kirjuta Nelinurga nurk.");
+                    süstimine = int.Parse(Console.ReadLine());
+                    if (süstimine == 90)
+                    {
+                        tüüp = "Ruut";
+                    }
+                    else if (süstimine == 60)
+                    {
+                        tüüp = "Romb";
+                    }
                 }
                 else if (kõrgus != laius)
                 {
-                    tüüp = "Ristkülik";
+                    
+                    if (süstimine == 90)
+                    {
+                        tüüp = "Ristkülik";
+                    }
+                    else
+                    {
+                        tüüp = "Rööpkülik";
+                    }
                 }
-                else
-                {
-                    tüüp = "Ebakorrapärane ruut";
-                }
-            }
-            get
-            {
                 return tüüp;
             }
         }
         public Nelinurk() { }
-        public Nelinurk(int kõrgus, int laius)
+        public Nelinurk(double Kõrgus, double Laius)
         {
-
+            kõrgus = Kõrgus;
+            laius = Laius;
+        }
+        public double Kõrgus
+        {
+            set { if (kõrgus == 0) kõrgus = value; }
+            get
+            {
+                return kõrgus;
+            }
+        }
+        public double Laius
+        {
+            set { if (laius == 0) laius = value; }
+            get
+            {
+                return laius;
+            }
         }
         public double Ala
         {
-            set
+            get
             {
-                double S;
-                if (tüüp=="Ruut")
+                if (tüüp == "Ruut")
                 {
                     S = kõrgus * kõrgus;
                 }
-                else if (tüüp=="Ristkülik")
+                else if (tüüp == "Ristkülik")
                 {
                     S = kõrgus * laius;
                 }
-
-            }
-            get
-            {
                 return S;
             }
         }
         public double Ümbermõõt
-        { }
+        {
+            get
+            {
+                if (tüüp == "Ruut")
+                {
+                    P = kõrgus * 4;
+                }
+                else if (tüüp == "Ristkülik")
+                {
+                    P = (kõrgus + laius) * 2;
+                }
+                return P;
+            }
+        }
+        public double Diagonaal
+        {
+            get
+            {
+                diagonaal = Math.Sqrt(kõrgus * kõrgus + laius * laius) ;
+                return diagonaal;
+            }
+        }
+        public int Kivisüsi
+        {
+            get
+            {
+                if (tüüp=="Ruut")
+                {
+                    süstimine_2 = 90;
+                }
+                else if (tüüp=="Romb")
+                {
+                    süstimine_2 = 120;
+                }
+            }
+        }
+        public void Info()
+        {
+            Console.WriteLine("Tüüp on {0}. Ala on {1} cm^2 ja ümbermõõt on {2} cm. Diagonaal on {3}", Tüüp, Ala, Ümbermõõt, Diagonaal);
+        }
     }
 }
